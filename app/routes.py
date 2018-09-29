@@ -74,12 +74,17 @@ def register():
 
     return render_template('register.html',title='register',form=form)
 
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.now()
+        db.session.commit()
+
+
 @app.route('/user/<username>')
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    user.last_seen = datetime.now()
-    db.session.commit()
     posts = [
         {
             'author':user,
@@ -96,6 +101,7 @@ def user(username):
 @app.route('/edit_profile',methods=['GET','POST'])
 @login_required
 def edit_profile():
+
     form = EditProfileForm()
     if form.validate_on_submit():
         current_user.username = form.username.data
