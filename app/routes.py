@@ -1,9 +1,9 @@
-from app import app
-from flask import render_template,redirect,url_for,flash
+from app import app,db
+from flask import render_template,redirect,url_for,flash,request
 from  .forms import LoginForm,RegisterForm
 from flask_login import login_user,logout_user,login_required,current_user
 from werkzeug.urls import url_parse
-
+from .models import User,Post
 
 @app.route('/')
 @app.route('/index')
@@ -37,9 +37,9 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         #flash("Login requested for user {}, remember me = {}".format(form.username.data,form.remember_me.data))
-        user = User.query.filter_by(username = form.username.data)
+        user = User.query.filter_by(username = form.username.data).first()
         if user is not None and user.check_password(form.password.data):
-            login_user(user,remember_me=form.remember_me.data)
+            login_user(user,remember=form.remember_me.data)
             flash('Login successful. Your username is {}'.format(user.username))
             return redirect(url_for('index'))
 
@@ -50,7 +50,7 @@ def login():
             # 如果是外部连接，就自动跳转到首页
             next_page = url_for('index')
         
-        return redirect(url_for(next_page))
+        return redirect(next_page)
 
     return render_template('login.html',title='login',form=form)
 
@@ -63,7 +63,7 @@ def register():
     
     form = RegisterForm()
     if form.validate_on_submit():
-        u = User(username=form.username.date,email=form.email.data)
+        u = User(username=form.username.data,email=form.email.data)
         u.set_password(form.password.data)
         db.session.add(u)
         db.session.commit()
