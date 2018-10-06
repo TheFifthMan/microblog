@@ -114,5 +114,45 @@ def edit_profile():
     
     return render_template('edit_profile.html',title='edit profile',form=form)
 
+# 容易造成CSRF攻击，或者蠕虫攻击
+
+@app.route('/follow/<username>')
+@login_required
+def follow(username):
+    u = User.query.filter_by(username=username).first()
+    if u == current_user:
+        flash('You can\'t follow yourself.' )
+        return redirect(url_for('user',username=username))
+
+    if u is None:
+        flash('user dont exists. ')
+        return redirect(url_for('index'))
+
+    if current_user.is_following(u):
+        flash("You are following")
+        return redirect(url_for('index'))
+        
+    current_user.follow(u)
+    db.session.commit()
+    flash('You are followed this user')
+    return redirect(url_for('user',username=username))
+
+@app.route('/unfollow/<username>')
+@login_required
+def unfollow(username):
+    u = User.query.filter_by(username=username).first()
+    if u is None:
+        flash('user dont exists')
+        return redirect(url_for('index'))
+
+    if current_user.is_following(u):
+        current_user.unfollow(u)
+        db.session.commit()
+        flash('You have unfollowed this user')
+        return redirect(url_for('user',username=username))
+
+    flash('You haven\'t followed this user' )
+    return redirect(url_for('index'))
+
 
     
