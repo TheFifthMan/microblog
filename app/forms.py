@@ -3,6 +3,11 @@ from wtforms import StringField,PasswordField,BooleanField,SubmitField,TextAreaF
 from wtforms.validators import DataRequired,ValidationError,Length,EqualTo,Email
 from .models import User,Post
 
+class PostForm(FlaskForm):
+    body = TextAreaField('Say Something.',validators=[DataRequired(),Length(1,140)])
+    submit = SubmitField('Submit')
+
+
 class LoginForm(FlaskForm):
     username = StringField('username',validators=[DataRequired()])
     password = PasswordField('password',validators=[DataRequired()])

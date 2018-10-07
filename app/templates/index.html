@@ -1,7 +1,18 @@
 {% extends "_base.html" %}
 {% block content %}
     <h1>Hello, {{ current_user.username }}</h1>
-    {% for post in posts %}
-    <div><p>{{ post.author.username }} say: <b>{{ post.body }}</b> </p></div>
-    {% endfor %}
+    {% if form %}
+        <form action='' method='POST' >
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.body.label }}<br/>
+                {{ form.body(cols=32,rows=4) }}<br/>
+                {% for error in form.body.errors %}
+                <span style='color:red'>{{ error }}</span>
+                {% endfor %}
+            </p>
+            <p>{{ form.submit() }}</p>
+        </form>
+    {% endif %}
+    {% include "_posts.html" %}
 {% endblock %}

@@ -10,7 +10,7 @@ class Config(object):
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('TOKEN')
     ADMINS = [os.environ.get('ADMIN_LIST')]
-
+    PAGINATE_PER_PAGE = 5
 
 
 
