@@ -20,6 +20,9 @@
             {{ form.remember_me() }} {{ form.remember_me.label }}
         </div>
         <div>
+            <a href='{{ url_for("request_reset_passwd") }}'>Forget Your Password ?</a>
+        </div>
+        <div>
             {{ form.submit() }}
         </div>
     </form>

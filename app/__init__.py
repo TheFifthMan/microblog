@@ -6,6 +6,7 @@ from flask_login import LoginManager
 import logging
 from logging.handlers import SMTPHandler,RotatingFileHandler
 import os
+from flask_mail import Mail
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -14,6 +15,7 @@ migrate = Migrate(app,db)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login' 
 login_manager.session_protection = 'strong'
+mail = Mail(app)
 
 
 # 相关的东西需要引入进来，实际就是一个单文件

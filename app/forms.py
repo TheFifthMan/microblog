@@ -7,6 +7,14 @@ class PostForm(FlaskForm):
     body = TextAreaField('Say Something.',validators=[DataRequired(),Length(1,140)])
     submit = SubmitField('Submit')
 
+class ReuqestRestPasswdForm(FlaskForm):
+    email = StringField('Your email is: ',validators=[DataRequired()])
+    submit = SubmitField('submit')
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('New Password: ',validators=[DataRequired(),Length(8,20)])
+    password2 = PasswordField("Enter Password Again: ",validators=[DataRequired(),Length(8,20),EqualTo('password')])
+    submit = SubmitField('submit')
 
 class LoginForm(FlaskForm):
     username = StringField('username',validators=[DataRequired()])
