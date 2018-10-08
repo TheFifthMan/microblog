@@ -7,6 +7,7 @@ import logging
 from logging.handlers import SMTPHandler,RotatingFileHandler
 import os
 from flask_mail import Mail
+from flask_bootstrap import Bootstrap 
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -16,7 +17,7 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login' 
 login_manager.session_protection = 'strong'
 mail = Mail(app)
-
+bootstrap = Bootstrap(app)
 
 # 相关的东西需要引入进来，实际就是一个单文件
 from app import routes,models,errors

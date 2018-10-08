@@ -1,33 +1,38 @@
-<html>
-    <head>
-        {% if title %}
-        <title> {{ title }} - Microblog </title>
-        {% else %}
-        <title>Welcome to MicroBlog </title>
-        {% endif %}
-    </head>
-    <body>
-        <div>Microblog: <a href='{{ url_for("index") }}'>Home</a>
-            <a href='{{ url_for("explore")}}'>explore</a>
-            {% if current_user.is_anonymous %}
-            <a href='{{ url_for("login") }}'>Login</a>
-            <a href='{{ url_for("register")}}'>Register</a>
-            {% else %}
-            <a href='{{ url_for("user",username=current_user.username) }}'>Profile</a>
-            <a href='{{ url_for("logout")}}'>Logout</a>
+{% extends "bootstrap/base.html" %}
+{% block title %}
+    {% if title %}
+    <title> {{ title }} - Microblog </title>
+    {% else %}
+    <title>Welcome to MicroBlog </title>
+    {% endif %}
+{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-default">
+    
+    Microblog: <a href='{{ url_for("index") }}'>Home</a>
+    <a href='{{ url_for("explore")}}'>explore</a>
+    {% if current_user.is_anonymous %}
+    <a href='{{ url_for("login") }}'>Login</a>
+    <a href='{{ url_for("register")}}'>Register</a>
+    {% else %}
+    <a href='{{ url_for("user",username=current_user.username) }}'>Profile</a>
+    <a href='{{ url_for("logout")}}'>Logout</a>
+    {% endif %}
+</nav>
+{% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+    <ul>
+        {% for msg in messages %}
+            {% if msg %}
+            <li>{{ msg }}</li>
             {% endif %}
-        <hr>
-        {% with messages = get_flashed_messages() %}
-        <ul>
-            {% for msg in messages %}
-                {% if msg %}
-                <li>{{ msg }}</li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-        {% endwith %}
+        {% endfor %}
+    </ul>
+    {% endwith %}
+{% endblock %}
 
-        {% block content %}{% endblock %}
+{% block app_content %}{% endblock %}
 
-    </body>
-</html>
