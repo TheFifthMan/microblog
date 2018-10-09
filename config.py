@@ -11,6 +11,7 @@ class Config(object):
     MAIL_PASSWORD = os.environ.get('TOKEN')
     ADMINS = [os.environ.get('ADMIN_LIST')]
     PAGINATE_PER_PAGE = 5
+    LANGUAGES = ['en','es','zh']
 
 
 
