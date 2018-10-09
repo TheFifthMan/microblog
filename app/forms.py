@@ -17,7 +17,12 @@ class ResetPasswordForm(FlaskForm):
     submit = SubmitField('submit')
 
 class LoginForm(FlaskForm):
-    username = StringField('username',validators=[DataRequired()])
+    username = StringField('username',validators=[DataRequired()],render_kw={
+        "type":"text",
+        "class":"form-control",
+        "placeholder":"Username",
+        "aria-describedby":"basic-addon1",
+    })
     password = PasswordField('password',validators=[DataRequired()])
     remember_me = BooleanField('remember me')
     submit = SubmitField('submit')

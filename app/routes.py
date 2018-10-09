@@ -33,7 +33,7 @@ def explore():
     posts = Post.query.order_by(Post.timestamp.desc()).paginate(page,app.config['PAGINATE_PER_PAGE'],False)
     prev_url = url_for('explore',page=posts.prev_num) if posts.has_prev else None
     next_url = url_for('explore',page=posts.next_num) if posts.has_next else None
-    return render_template('index.html',title="expore",next_url=next_url,prev_url=prev_url,posts=posts.items)
+    return render_template('index.html',title="explore",next_url=next_url,prev_url=prev_url,posts=posts.items)
 
 @app.route('/logut')
 @login_required
@@ -100,7 +100,7 @@ def user(username):
     prev_url = url_for('user',username=username,page=posts.prev_num) if posts.has_prev else None
     next_url = url_for('user',username=username,page=posts.next_num) if posts.has_next else None
 
-    return render_template('user.html',user=user,prev_url=prev_url,next_url=next_url,posts=posts.items)
+    return render_template('user.html',title='user',user=user,prev_url=prev_url,next_url=next_url,posts=posts.items)
 
 @app.route('/edit_profile',methods=['GET','POST'])
 @login_required
