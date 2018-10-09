@@ -24,7 +24,7 @@
             {% if user.about_me  %}
             <p> {{ user.about_me }}</p>
             {% endif %}
-            <p>Last Seen: {{ user.last_seen }}</p>
+            <p>Last seen on: {{ moment(user.last_seen).format('LLL') }}</p>
             {% if current_user.username == user.username %}
             <p>
                 <a href='{{ url_for("edit_profile") }}'>edit</a>

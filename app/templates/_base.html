@@ -71,7 +71,12 @@
     {% endif %}
     {% endwith %}
     {% block app_content %}{% endblock %}
+    <footer>{{ moment().format('MMMM Do YYYY, h:mm:ss a') }}</p>
+</footer>
 </div>
 {% endblock %}
 
-
+{% block scripts %}
+{{ super() }}
+{{ moment.include_moment() }}
+{% endblock %}
