@@ -33,10 +33,10 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user.is_anonymous %}
                 <li class=" {% if title == 'login'%}active{% endif %} ">
-                    <a  href='{{ url_for("login") }}'>Login</a>
+                    <a  href='{{ url_for("auth.login") }}'>Login</a>
                 </li>
                 <li class=" {%  if title == 'register' %}active{% endif %} ">
-                    <a  href='{{ url_for("register")}}'>Register</a>
+                    <a  href='{{ url_for("auth.register")}}'>Register</a>
                 </li>
                 {% else %}
                 <li class="dropdown">
@@ -46,7 +46,7 @@
                             <a  href='{{ url_for("user",username=current_user.username) }}'>Profile</a>
                         </li>
                         <li class="{%if title == 'logout' %}active{% endif %}">
-                            <a  href='{{ url_for("logout")}}'>Logout</a>
+                            <a  href='{{ url_for("auth.logout")}}'>Logout</a>
                         </li>
                     </ul>
                 </li>
