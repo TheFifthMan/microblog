@@ -13,13 +13,13 @@ from app.email import send_reset_password_email
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('main.index'))
 
 @auth_bp.route('/login',methods=['GET',"POST"])
 def login():
     if current_user.is_authenticated:
         flash("You have login")
-        return redirect(url_for('index'))
+        return redirect(url_for('main.index'))
     form = LoginForm()
     if form.validate_on_submit():
         #flash("Login requested for user {}, remember me = {}".format(form.username.data,form.remember_me.data))
@@ -27,14 +27,14 @@ def login():
         if user is not None and user.check_password(form.password.data):
             login_user(user,remember=form.remember_me.data)
             flash('Login successful. Your username is {}'.format(user.username))
-            return redirect(url_for('index'))
+            return redirect(url_for('main.index'))
 
         flash('Invilida username or password.')
         # 本身就是一个网址
         next_page = request.args.get('next')
         if next_page is not None and url_parse(next_page).netloc != '':
             # 如果是外部连接，就自动跳转到首页
-            next_page = url_for('index')
+            next_page = url_for('main.index')
         
         return redirect(next_page)
 
@@ -45,7 +45,7 @@ def login():
 def register():
     if current_user.is_authenticated:
         flash('You have login')
-        return redirect(url_for('index'))
+        return redirect(url_for('main.index'))
     
     form = RegisterForm()
     if form.validate_on_submit():
@@ -63,7 +63,7 @@ def register():
 def request_reset_passwd():
     if current_user.is_authenticated:
         flash('You have login')
-        return redirect(url_for('index'))
+        return redirect(url_for('main.index'))
     form = ReuqestRestPasswdForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -81,11 +81,11 @@ def reset_passwd(token):
     user = User.verify_reset_password_token(token)
     if user is None:
         flash('The token is error or expire')
-        return redirect(url_for('index'))
+        return redirect(url_for('main.index'))
     
     if current_user.is_authenticated:
         flash('You have login. ')
-        return redirect(url_for('index'))
+        return redirect(url_for('main.index'))
     
     form = ResetPasswordForm()
     if form.validate_on_submit():

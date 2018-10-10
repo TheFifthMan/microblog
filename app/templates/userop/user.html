@@ -12,11 +12,11 @@
             {% if current_user != user %}
                 {% if not current_user.is_following(user) %}
                 <p>
-                    <a href='{{ url_for("follow",username=user.username) }} '>follow</a>
+                    <a href='{{ url_for("userop.follow",username=user.username) }} '>follow</a>
                 </p>
                 {% else %}
                 <p>
-                    <a href='{{ url_for("unfollow",username=user.username) }}'>unfollow</a>
+                    <a href='{{ url_for("userop.unfollow",username=user.username) }}'>unfollow</a>
                 </p>
                 {% endif %}
 
@@ -27,7 +27,7 @@
             <p>Last seen on: {{ moment(user.last_seen).format('LLL') }}</p>
             {% if current_user.username == user.username %}
             <p>
-                <a href='{{ url_for("edit_profile") }}'>edit</a>
+                <a href='{{ url_for("userop.edit_profile") }}'>edit</a>
             </p>
             {% endif %}
         </td>
