@@ -26,6 +26,7 @@ babel = Babel()
 
 def create_app(config_name):
     app = Flask(__name__)
+    app.config.from_object(Configuration[config_name])
     db.init_app(app)
     migrate.init_app(app,db)
     login_manager.init_app(app)
@@ -34,7 +35,6 @@ def create_app(config_name):
     moment.init_app(app)
     babel.init_app(app)
 
-    app.config.from_object(Configuration[config_name])
     from app.errors import errors_bp
     app.register_blueprint(errors_bp)
     from app.auth import auth_bp

@@ -65,7 +65,7 @@
         <ul>
             {% for msg in messages %}
                 {% if msg %}
-                <div class="alert alert-info" role="alert">{{ message }}</div>
+                <div class="alert alert-info" role="alert">{{ msg }}</div>
                 {% endif %}
             {% endfor %}
         </ul>
@@ -73,7 +73,7 @@
     {% endwith %}
     </div>
     {% block app_content %}{% endblock %}
-    <footer>{{ moment().format('MMMM Do YYYY, h:mm:ss a') }}</p>
+    <!-- footer>{{ moment().format('MMMM Do YYYY, h:mm:ss a') }}</p-->
 </footer>
 </div>
 {% endblock %}
