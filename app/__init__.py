@@ -39,7 +39,7 @@ def create_app():
     app.register_blueprint(errors_bp)
     from app.auth import auth_bp
     app.register_blueprint(auth_bp)
-    from app.user import user_bp
+    from app.userop import user_bp
     app.register_blueprint(user_bp)
     from app.main import main_bp
     app.register_blueprint(main_bp)

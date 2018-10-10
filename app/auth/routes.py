@@ -4,7 +4,7 @@ from flask import render_template,redirect,url_for,flash,request
 from  .forms import LoginForm,RegisterForm,ReuqestRestPasswdForm,ResetPasswordForm
 from flask_login import login_user,logout_user,login_required,current_user
 from werkzeug.urls import url_parse
-from .models import User,Post
+from app.models import User,Post
 from datetime import datetime 
 from app.email import send_reset_password_email
 

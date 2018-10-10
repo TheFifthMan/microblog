@@ -1,3 +1,3 @@
 from flask import Blueprint
-user_bp = Blueprint('user',__name__)
-from app.user import routes,forms
+user_bp = Blueprint('userop',__name__)
+from app.userop import routes,forms
