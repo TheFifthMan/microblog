@@ -14,4 +14,7 @@ class Config(object):
     LANGUAGES = ['en','es','zh']
 
 
-
+Configuration = {
+    'dev':Config,
+    'default':Config
+}

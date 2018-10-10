@@ -10,6 +10,7 @@ from flask_mail import Mail
 from flask_bootstrap import Bootstrap 
 from flask_moment import Moment
 from flask_babel import Babel
+from config import Configuration
 
 
 db = SQLAlchemy()
@@ -23,8 +24,7 @@ moment = Moment()
 # http://www.unicode.org/cldr/charts/latest/supplemental/territory_language_information.html
 babel = Babel()
 
-def create_app():
-    
+def create_app(config_name):
     app = Flask(__name__)
     db.init_app(app)
     migrate.init_app(app,db)
@@ -34,7 +34,7 @@ def create_app():
     moment.init_app(app)
     babel.init_app(app)
 
-    app.config.from_object(Config)
+    app.config.from_object(Configuration[config_name])
     from app.errors import errors_bp
     app.register_blueprint(errors_bp)
     from app.auth import auth_bp
