@@ -78,3 +78,12 @@ def unfollow(username):
 
     flash('You haven\'t followed this user' )
     return redirect(url_for('main.index'))
+
+@user_bp.route('/user/<username>/<popup>')
+@login_required
+def user_popup(username):
+    user = User.query.filter_by(username=username).first()
+    if user is not None:
+        return render_template()
+    else:
+        return redirect('main.index')
